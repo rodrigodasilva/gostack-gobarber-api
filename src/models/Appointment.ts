@@ -10,10 +10,6 @@ import {
 
 import User from './Users';
 
-/**
- * Ao utilizar o '@Entity' indicamos a tabela que iremos
- * trabalhar no banco de dados
- */
 @Entity('appointments')
 class Appointment {
   @PrimaryGeneratedColumn('uuid')
