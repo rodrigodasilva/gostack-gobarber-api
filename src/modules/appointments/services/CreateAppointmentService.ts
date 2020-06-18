@@ -11,12 +11,6 @@ interface Request {
   date: Date;
 }
 
-// Todo service deve ter um único método
-/**
- * Dependency Inversion (SOLID) - neste caso é utilizado
- * para receber o AppointmentRepository como parametro para utilizarmos
- * neste service
- */
 class CreateAppointmentService {
   public async execute({ date, provider_id }: Request): Promise<Appointment> {
     const appointmentsRepository = getCustomRepository(AppointmentsRepository);
@@ -31,12 +25,10 @@ class CreateAppointmentService {
       throw new AppError('This appointment is already booked');
     }
 
-    const appointment = appointmentsRepository.create({
+    const appointment = await appointmentsRepository.create({
       provider_id,
       date: appointmentDate,
     });
-
-    await appointmentsRepository.save(appointment);
 
     return appointment;
   }
