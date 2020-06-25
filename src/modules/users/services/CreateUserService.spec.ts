@@ -14,13 +14,13 @@ describe('CreateUsers', () => {
       fakeHashProvider
     );
 
-    const appointment = await createUsers.execute({
+    const user = await createUsers.execute({
       name: 'John Doe',
       email: 'johndoe@example.com',
       password: '123456',
     });
 
-    expect(appointment).toHaveProperty('id');
+    expect(user).toHaveProperty('id');
   });
 
   it('should not be able to create a new user with same email from another', async () => {
