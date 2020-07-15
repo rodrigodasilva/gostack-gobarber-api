@@ -1,5 +1,13 @@
-> docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
-> docker start gostack_postgres
+## Instanciamos os bancos de dados
+
+- Postgress
+
+  > docker run --name gostack_postgres -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres
+  > docker start gostack_postgres
+
+- MongoDB
+  > docker run --name mongodb -p 27017:27017 -d -t mongo
+  > docker start mongodb
 
 ## Migrations
 
