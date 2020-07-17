@@ -9,16 +9,6 @@ import ICacheProvider from '@shared/container/providers/CacheProvider/models/ICa
 
 import INotificationsRepository from '@modules/notifications/repositories/INotificationsRepository';
 
-/**
- * [x] Recebimento das informações
- * [x] Tratativa de erros/excessões
- * [x] Acesso ao repositório
- */
-
-/**
- * Dependency Inversion (SOLID)
- */
-
 interface IRequest {
   provider_id: string;
   user_id: string;
