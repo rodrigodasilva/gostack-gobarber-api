@@ -1,16 +1,17 @@
 import { injectable, inject } from 'tsyringe';
+import path from 'path';
 
 import AppError from '@shared/errors/AppError';
+import IUsersRepository from '@modules/users/repositories/IUsersRepository';
 import IMailProvider from '@shared/container/providers/MailProvider/models/IMailProvider';
-import IUsersRepository from '../repositories/IUsersRepository';
-import IUserTokensRepository from '../repositories/IUserTokensRepository';
+import IUserTokensRepository from '@modules/users/repositories/IUserTokensRepository';
 
 interface IRequest {
   email: string;
 }
 
 @injectable()
-class SendForgotPasswordEmailService {
+class SendForgotPasswordEmailSercice {
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
@@ -19,17 +20,24 @@ class SendForgotPasswordEmailService {
     private mailProvider: IMailProvider,
 
     @inject('UserTokensRepository')
-    private userTokenRepository: IUserTokensRepository
+    private userTokensRepository: IUserTokensRepository
   ) {}
 
-  public async execute({ email }: IRequest): Promise<void> {
+  async execute({ email }: IRequest): Promise<void> {
     const user = await this.usersRepository.findByEmail(email);
 
     if (!user) {
-      throw new AppError('User does not exists.');
+      throw new AppError('User does not exists');
     }
 
-    const { token } = await this.userTokenRepository.generate(user.id);
+    const { token } = await this.userTokensRepository.generate(user.id);
+
+    const forgotPasswordTempalte = path.resolve(
+      __dirname,
+      '..',
+      'views',
+      'forgot_password.hbs'
+    );
 
     await this.mailProvider.sendMail({
       to: {
@@ -38,14 +46,14 @@ class SendForgotPasswordEmailService {
       },
       subject: '[GoBarber] Recuperação de senha',
       templateData: {
-        template: 'Olá, {{name}}: {{token}}',
+        file: forgotPasswordTempalte,
         variables: {
           name: user.name,
-          token,
+          link: `${process.env.APP_WEB_URL}/reset-password?token=${token}`,
         },
       },
     });
   }
 }
 
-export default SendForgotPasswordEmailService;
+export default SendForgotPasswordEmailSercice;

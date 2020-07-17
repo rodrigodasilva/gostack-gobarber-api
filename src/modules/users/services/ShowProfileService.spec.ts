@@ -1,15 +1,16 @@
 import AppError from '@shared/errors/AppError';
 
-import FakeUsersRepository from '../repositories/fakes/FakeUsersRepository';
+import FakeUsersRepository from '@modules/users/repositories/fakes/FakeUsersRepository';
 import ShowProfileService from './ShowProfileService';
 
 let fakeUsersRepository: FakeUsersRepository;
-let showProfileService: ShowProfileService;
+let showProfile: ShowProfileService;
 
 describe('ShowProfile', () => {
   beforeEach(() => {
     fakeUsersRepository = new FakeUsersRepository();
-    showProfileService = new ShowProfileService(fakeUsersRepository);
+
+    showProfile = new ShowProfileService(fakeUsersRepository);
   });
 
   it('should be able to show the profile', async () => {
@@ -19,7 +20,7 @@ describe('ShowProfile', () => {
       password: '123456',
     });
 
-    const profile = await showProfileService.execute({
+    const profile = await showProfile.execute({
       user_id: user.id,
     });
 
@@ -29,9 +30,9 @@ describe('ShowProfile', () => {
 
   it('should not be able to show the profile from non-existing user', async () => {
     await expect(
-      showProfileService.execute({
+      showProfile.execute({
         user_id: 'non-existing-user-id',
-      })
+      }),
     ).rejects.toBeInstanceOf(AppError);
   });
 });

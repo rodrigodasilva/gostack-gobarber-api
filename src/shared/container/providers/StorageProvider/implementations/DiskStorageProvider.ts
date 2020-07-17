@@ -2,14 +2,13 @@ import fs from 'fs';
 import path from 'path';
 
 import uploadConfig from '@config/upload';
+import IStoreProvider from '@shared/container/providers/StorageProvider/models/IStorageProviders';
 
-import IStorageProvider from '../models/IStorageProvider';
-
-class DiskStorageProvider implements IStorageProvider {
+export default class DiskStorageProvider implements IStoreProvider {
   public async saveFile(file: string): Promise<string> {
     await fs.promises.rename(
       path.resolve(uploadConfig.tmpFolder, file),
-      path.resolve(uploadConfig.uploadsFolder, file)
+      path.resolve(uploadConfig.uploadsFolder, file),
     );
 
     return file;
@@ -27,5 +26,3 @@ class DiskStorageProvider implements IStorageProvider {
     await fs.promises.unlink(filePath);
   }
 }
-
-export default DiskStorageProvider;

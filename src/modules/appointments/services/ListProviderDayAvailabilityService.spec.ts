@@ -8,7 +8,7 @@ describe('ListProviderDayAvailability', () => {
   beforeEach(() => {
     fakeAppointmentsRepository = new FakeAppointmentsRepository();
     listProviderDayhAvailability = new ListProviderDayAvailabilityService(
-      fakeAppointmentsRepository
+      fakeAppointmentsRepository,
     );
   });
 
@@ -46,7 +46,7 @@ describe('ListProviderDayAvailability', () => {
         { hour: 15, available: false },
         { hour: 16, available: true },
         { hour: 15, available: false },
-      ])
+      ]),
     );
   });
 });

@@ -1,7 +1,14 @@
-node_modules
-dist
-.env
-temp/
+node_modules/
+dist/
+build/
+
+coverage
 
 tmp/*
-!tmp/.gitkeep
+tmp/uploads/*
+!tmp/uploads
+!tmp/uploads/.gitkeep
+.DS_Store
+
+.env
+ormconfig.json

@@ -1,6 +1,6 @@
-import User from '../infra/typeorm/entities/User';
-import ICreateUserDTO from '../dtos/ICreateUserDTO';
-import IFindAllProvidersDTO from '../dtos/IFindAllProvidersDTO';
+import User from '@modules/users/infra/typeorm/entities/User';
+import ICreateUserDTO from '@modules/users/dtos/ICreateUserDTO';
+import IFindAllProvidersDTO from '@modules/users/dtos/IFindAllProvidersDTO';
 
 export default interface IUsersRepository {
   findAllProviders(data: IFindAllProvidersDTO): Promise<User[]>;

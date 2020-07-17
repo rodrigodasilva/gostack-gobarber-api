@@ -19,7 +19,7 @@ type IResponse = Array<{
 class ListProviderDayAvailabilityService {
   constructor(
     @inject('AppointmentsRepository')
-    private appointmentsRepository: IAppointmentsRepository
+    private appointmentsRepository: IAppointmentsRepository,
   ) {}
 
   public async execute({
@@ -34,20 +34,20 @@ class ListProviderDayAvailabilityService {
         day,
         month,
         year,
-      }
+      },
     );
 
     const hourStart = 8;
     const eachHourArray = Array.from(
-      { length: 10 }, // 10 horarios disponiveis ao longo do dia
-      (_, index) => index + hourStart
+      { length: 10 },
+      (_, index) => index + hourStart,
     );
 
     const currentDate = new Date(Date.now());
 
-    const availability = eachHourArray.map((hour) => {
+    const availability = eachHourArray.map(hour => {
       const hasAppointmentInHour = appointments.find(
-        (appointment) => getHours(appointment.date) === hour
+        appointment => getHours(appointment.date) === hour,
       );
 
       const compareDate = new Date(year, month - 1, day, hour);
