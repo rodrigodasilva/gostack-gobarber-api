@@ -20,7 +20,7 @@ class SendForgotPasswordEmailSercice {
     private mailProvider: IMailProvider,
 
     @inject('UserTokensRepository')
-    private userTokensRepository: IUserTokensRepository
+    private userTokensRepository: IUserTokensRepository,
   ) {}
 
   async execute({ email }: IRequest): Promise<void> {
@@ -36,7 +36,7 @@ class SendForgotPasswordEmailSercice {
       __dirname,
       '..',
       'views',
-      'forgot_password.hbs'
+      'forgot_password.hbs',
     );
 
     await this.mailProvider.sendMail({
